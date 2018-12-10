@@ -1,4 +1,3 @@
-
 package Arkanoid;
 
 import java.awt.Color;
@@ -18,27 +17,30 @@ public class Arkanoid extends JFrame implements ActionListener,KeyListener {
 
     public static Arkanoid arkanoid;
     
-    public final int WIDTH = 566, HEIGHT = 600;
+    private final int WIDTH = 566;
     
-    public boolean Run = false;
+    private final int HEIGHT = 600;
     
-    public int rows = 3;
+    private boolean run = false;
     
-    public int columns = 7;
+    private int rows = 3;
     
-    public int BrickAmount=rows*columns;
+    private int columns = 7;
     
-    public Renderer renderer;
+    private int BrickAmount=rows*columns;
     
-    public Ball ball;
+    private Renderer renderer=null;
     
-    public Blocks blocks; 
+    private Ball ball=null;
+    
+    private Blocks blocks=null; 
     
     private int paddleX=240;
     
     private int paddleY=560;
     
-    public boolean pause = false;
+    private boolean pause = false;
+    
     public Arkanoid()
     {
        ball = new Ball();
@@ -72,22 +74,22 @@ public class Arkanoid extends JFrame implements ActionListener,KeyListener {
     public void actionPerformed(ActionEvent e)
     {
      //Ciklas skirtas surasti ar kamuolys(klasė ball) atsirenkė į vieną iš blokų
-     if(Run)
+     if(run)
      {
        
-         for(int i=0; i<blocks.block.length; i++)
+         for(int i=0; i<blocks.getBlock().length; i++)
             {
                
-               for(int j=0;j<blocks.block[0].length;j++)
+               for(int j=0;j<blocks.getBlock()[0].length;j++)
                {
                     
-                   if(blocks.block[i][j]>0)
+                   if(blocks.getBlock()[i][j]>0)
                    {
-                       Rectangle PaintBlock = new Rectangle((j-1)*blocks.blockwidth+80,(i-1)*blocks.blockheight+50, blocks.blockwidth,blocks.blockheight);//Apibrėžiamas blokas kaip stačiakampis objektas
+                       Rectangle PaintBlock = new Rectangle((j-1)*blocks.getBlockwidth()+80,(i-1)*blocks.getBlockheight()+50, blocks.getBlockwidth(),blocks.getBlockheight());//Apibrėžiamas blokas kaip stačiakampis objektas
                        
                        
                        
-                       Rectangle PaintBall = new Rectangle(ball.kordX,ball.kordY,ball.width,ball.height); 
+                       Rectangle PaintBall = new Rectangle(ball.getKordX(),ball.getKordY(),ball.getWidth(),ball.getHeight()); 
                         
                        
                        if(PaintBlock.intersects(PaintBall)) 
@@ -95,7 +97,7 @@ public class Arkanoid extends JFrame implements ActionListener,KeyListener {
                            BrickAmount--;
                            blocks.Destroyed(i,j);
                            
-                           if( ball.kordX+19 <= PaintBlock.x || ball.kordX+2 >= PaintBlock.x+PaintBlock.width)
+                           if( ball.getKordX()+19 <= PaintBlock.x || ball.getKordX()+2 >= PaintBlock.x+PaintBlock.width)
                            {
                                ball.changemovX();
                            }
@@ -118,14 +120,12 @@ public class Arkanoid extends JFrame implements ActionListener,KeyListener {
        ball.movY();
        
        //Tikrinama ar kamuolys susiduria su platforma
-       if(new Rectangle(ball.kordX,ball.kordY,ball.width,ball.height).intersects(paddleX,paddleY,86,10))
+       
+       if(new Rectangle(ball.getKordX(),ball.getKordY(),ball.getWidth(),ball.getHeight()).intersects(paddleX,paddleY,86,10))
        ball.changemovY();
        
         renderer.repaint();
-       
-       
-       
-        
+     
      }
     }
     
@@ -141,11 +141,11 @@ public class Arkanoid extends JFrame implements ActionListener,KeyListener {
         
         g.setColor(Color.red);
         
-        g.fillOval(ball.kordX,ball.kordY,ball.width,ball.height);
+        g.fillOval(ball.getKordX(),ball.getKordY(),ball.getWidth(),ball.getHeight());
         
-        if(ball.kordY>HEIGHT)
+        if(ball.getKordY()>HEIGHT)
         {
-            this.Run=false;
+            this.run=false;
             
             ball=new Ball();
             g.setColor(Color.blue);
@@ -159,7 +159,7 @@ public class Arkanoid extends JFrame implements ActionListener,KeyListener {
             g.setColor(Color.blue);
             g.setFont(new Font("serif",Font.BOLD,25));
             g.drawString("Game is paused,click left or right to continue",50,300);
-            Run=false;
+            run=false;
         }
         
         if(BrickAmount==0)
@@ -167,7 +167,7 @@ public class Arkanoid extends JFrame implements ActionListener,KeyListener {
             g.setColor(Color.blue);
             g.setFont(new Font("serif",Font.BOLD,25));
             g.drawString("You won! Press Enter to start again",50,300);
-            Run=false;
+            run=false;
         }
             
        
@@ -182,7 +182,6 @@ public class Arkanoid extends JFrame implements ActionListener,KeyListener {
     public static void main(String[] args) {
         
         arkanoid = new Arkanoid();
-  
     }
 
     @Override
@@ -200,7 +199,7 @@ public class Arkanoid extends JFrame implements ActionListener,KeyListener {
             {
                
                 paddleX+=20;
-                Run=true;
+                run=true;
                 pause=false;
             }
         }
@@ -210,19 +209,19 @@ public class Arkanoid extends JFrame implements ActionListener,KeyListener {
              if(paddleX-20>=0)
             {
                 paddleX-=20;
-                Run=true;
+                run=true;
                 pause=false;
             }
         }
         
         if(e.getKeyCode() == KeyEvent.VK_ENTER)
-            if(!Run)
+            if(!run)
             {
-                Run=true;
-                ball.kordX=250;
-                ball.kordY=350;
-                ball.moveY=-4;
-                ball.moveX=-2;
+                run=true;
+                ball.setKordX(250);
+                ball.setKordY(350);
+                ball.setMoveY(-4);
+                ball.setMoveX(-2);
                 paddleX=240;
                 paddleY=540;
                 blocks = new Blocks(rows,columns);

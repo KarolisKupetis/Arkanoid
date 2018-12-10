@@ -1,16 +1,59 @@
-
-
 package Arkanoid;
 
-
-
 public class Ball {
-    public final int height=20;
-    public final int width=20;
-    public int kordX=280;
-    public int kordY=350;
-    public int moveX=-2;
-    public int moveY=-4;
+    private final int height=20;
+    
+    private final int width=20;
+    
+    private int kordX=280;
+    
+    private int kordY=350;
+    
+    private int moveX=-2;
+    
+    private int moveY=-4;
+    
+    public int getKordX() {
+        return kordX;
+    }
+
+    public void setKordX(int kordX) {
+        this.kordX = kordX;
+    }
+
+    public int getKordY() {
+        return kordY;
+    }
+
+    public void setKordY(int kordY) {
+        this.kordY = kordY;
+    }
+
+    public int getMoveX() {
+        return moveX;
+    }
+
+    public void setMoveX(int moveX) {
+        this.moveX = moveX;
+    }
+
+    public int getMoveY() {
+        return moveY;
+    }
+
+    public void setMoveY(int moveY) {
+        this.moveY = moveY;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+    
+    
     public void movX()  //Kamuolio judėjimas dešinėn
     {
         
@@ -49,4 +92,11 @@ public class Ball {
     {
         this.moveY*=-1;
     }
+
+    
+   
+    
+    
+    
+    
 }
