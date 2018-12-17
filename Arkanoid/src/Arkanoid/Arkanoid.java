@@ -10,6 +10,4 @@ public class Arkanoid  {
         
         arkanoid = new GameRun();
     }
-
-   
 }

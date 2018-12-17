@@ -42,7 +42,7 @@ public class BlocksTest {
      */
     @Test
     public void testGetBlockheight() {
-        System.out.println("getBlockheight");
+        System.out.println("getBlockHeight");
         Blocks instance = new Blocks(3 ,7);
         int expResult = 50;
         int result = instance.getBlockheight();
@@ -51,9 +51,9 @@ public class BlocksTest {
     
      @Test
     public void testGetBlockwidth() {
-        System.out.println("getBlockheight");
-        Blocks instance = new Blocks(3 ,7);
-        int expResult = 20;
+        System.out.println("getBlockWidth");
+        Blocks instance = new Blocks(50 ,7);
+        int expResult = 3;
         int result = instance.getBlockheight();
         assertEquals(expResult, result);
     }
